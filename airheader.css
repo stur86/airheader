@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  overflow: hidden; }
+
+air-header {
+  display: block;
+  position: fixed;
+  top: 0;
+  bottom: 20%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box; }
+  air-header #air-header-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+  air-header #air-header-bkgfoil {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1; }
+  air-header #air-header-bkgimg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    object-fit: cover; }
+
+air-header-body {
+  display: block;
+  position: absolute;
+  top: 20%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 8px;
+  z-index: 898;
+  overflow-y: auto; }
+
+/*# sourceMappingURL=airheader.css.map */
