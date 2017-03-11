@@ -46,42 +46,19 @@ var AirHeaderBody = document.registerElement('air-header-body');
         }),
         // Set a single color for the 'foil' (layer between image and text)
         'foil-color': attr_decor(function(ah, ab, val) {
-            var bkgFoil = ah._foil;
-            if (bkgFoil == null) {
-                bkgFoil = document.createElement('div');
-                bkgFoil.setAttribute('id', 'air-header-bkgfoil');
-                ah.appendChild(bkgFoil);
-                ah._foil = bkgFoil;
-            }
-            bkgFoil.style.backgroundColor = val;
+            ah._foil.style.backgroundColor = val;
         }),
         // Set a gradient color for the 'foil'
         'foil-gradient': attr_decor(function(ah, ab, val) {
-            var bkgFoil = ah._foil;
-            if (bkgFoil == null) {
-                bkgFoil = document.createElement('div');
-                bkgFoil.setAttribute('id', 'air-header-bkgfoil');
-                ah.appendChild(bkgFoil);
-                ah._foil = bkgFoil;
-            }
-
             // Create gradient style
             var gstyle = 'background: linear-gradient(' + val + ');';
             gstyle += 'background: -webkit-linear-gradient(' + val + ');';
 
-            bkgFoil.style.cssText += gstyle;
+            ah._foil.style.cssText += gstyle;
         }),
         // Set the foil's background CSS attribute directly
         'foil-background': attr_decor(function(ah, ab, val) {
-            var bkgFoil = ah._foil;
-            if (bkgFoil == null) {
-                bkgFoil = document.createElement('div');
-                bkgFoil.setAttribute('id', 'air-header-bkgfoil');
-                ah.appendChild(bkgFoil);
-                ah._foil = bkgFoil;
-            }
-
-            bkgFoil.style.background = val;
+            ah._foil.style.background = val;
         }),
     }
 
@@ -104,6 +81,11 @@ var AirHeaderBody = document.registerElement('air-header-body');
         // And set to it the first child of the header
         ah._text.appendChild(ah.firstChild);
         ah.appendChild(ah._text);
+        // Foil always created
+        bkgFoil = document.createElement('div');
+        bkgFoil.setAttribute('id', 'air-header-bkgfoil');
+        ah._foil = bkgFoil;
+        ah.appendChild(bkgFoil);
 
         for (attr in attr_handlers) {
             attr_handlers[attr](ah, ab, ah.getAttribute(attr));

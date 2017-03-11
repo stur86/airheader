@@ -40,7 +40,7 @@
             font-family: 'Open Sans', sans-serif;
         }
 
-        h1, h2 {
+        h1, h2, h3 {
             width: 100%;
             text-align: center;
             font-family: 'Amaranth', sans-serif;
@@ -81,22 +81,76 @@
         airheader.js
     </air-header>
 
-    <a class="pure-button button-zip" href="airheader.min.js">Download JS+CSS</a>
-    <a class="pure-button button-git" href="airheader.min.js">Get the source</a>
+    <a class="pure-button button-zip" href="airheader.tar.gz">Download JS+CSS</a>
+    <a class="pure-button button-git" href="https://github.com/stur86/airheader">Get the source</a>
 
-    <h1>A simple vanilla JS+CSS solution for pretty headers, as light as air.</h1>
+    <h1>airheader.js</h1>
 
-    <p>
-        Do things.
-    </p>
+    <h2>A JS+CSS solution for pretty webpage headers - as light as air!</h2>
 
-    <pre>
-        <code class="language-css">
-            this {
-                background: yo;
-            }
-        </code>
-    </pre>
+    <p>Airheader.js is a simple JS+CSS solution to create pretty webpage headers in a single line of code. It defines two new HTML elements, <code>air-header</code> and <code>air-header-body</code>. The former, when used, immediately transforms into a fixed block, displacing the rest of the content in an instance of the second - which is created automatically, so you don't need to worry about that.</p>
+
+    <p>The simplest way to use it is to create an element:</p>
+
+    <p><code class='language-html'>
+    &lt;air-header&gt;Title of my page&lt;/air-header&gt;
+    </code></p>
+
+    <p>right at the top of your page's <code>body</code>. It's important that the header is placed as the first element, as it won't put in <code>air-header-body</code> anything that comes before it. This will immediately create a header with "Title of my page" right at the center and displace everything down. Of course that might still look a little dreary, so let's see how to spice it up with some style!</p>
+
+    <h2>Attributes</h2>
+
+    <p>The <code>air-header</code> element has some special attributes that allow it to define some aspects of how it looks like. Let's go through them.</p>
+
+    <h3>Height</h3>
+
+    <p><code class='language-html'>
+    &lt;air-header height='40%'&gt;Title of my page&lt;/air-header&gt;
+    </code></p>
+
+    <p>The <code>height</code> attribute simply controls the height of the header and, by proxy, the remaning height for the body. Important: even if you don't specify any units, this height is intended in <strong><em>percent</em></strong>. Anything else will be ignored.</p>
+
+    <h3>Image</h3>
+
+    <p><code class='language-html'>
+    &lt;air-header height='40%' image='img/background.png'&gt;Title of my page&lt;/air-header&gt;
+    </code></p>
+
+    <p>The <code>image</code> attribute sets the URL of an image you want to display in the background of header. Make sure the image is big enough to look good at any resolution and has a ratio sufficient not to leave any empty space! This image is placed in a special <code>div</code> element with ID <code>air-header-bkgimg</code>.</p>
+
+    <h3>Foil</h3>
+
+    <p><code class='language-html'>
+    &lt;air-header height='40%' image='img/background.png' 
+    foil-color='rgba(0,0,0,0.2)'&gt;Title of my page&lt;/air-header&gt;
+    </code></p>
+
+    <p><code class='language-html'>
+    &lt;air-header height='40%' image='img/background.png' 
+    foil-gradient='45deg,rgba(0,0,0,0.0),rgba(0,0,0,0.5)'&gt;Title of my page&lt;/air-header&gt;
+    </code></p>
+
+    <p>The 'foil' is the name of a layer that stays in between the background image and the layer displaying the text of the header. It allows you to apply special effects to make the header look different and possibly mutable. <code>foil-color</code> simply sets a uniform background color for the foil, while <code>foil-gradient</code> accepts the same arguments as the CSS definition of <code>linear-gradient</code> (don't worry about prefixes, airheader takes care of those). In this case the first example places a gray half transparent layer over the entire header, while the second makes it gradually appear over the image from bottom left. If neither of these options are enough, you can use the attribute <code>foil-background</code> to directly set the CSS for the <code>background</code> attribute, or style directly <code>#air-header-bkgfoil</code>.</p>
+
+    <h2>Styling elements</h2>
+
+    <p>Of course there's still plenty of styling possibilities you may have in mind, but those don't affect anything too much, so you can simply set them yourself through ordinary CSS (except for positioning related ones and transforms - mess with those at your own risk!). For than it's important however to know the names of the elements that appear in the page after the header has been placed.</p>
+
+    <p>The main element is of course <code>air-header</code>. If you're not looking for anything too sophisticated you can style this (text size, color, font etc.) and leave it at that. For most applications this will work.</p>
+
+    <p>Everything else in the page is dumped into <code>air-header-body</code>. This basically becomes a replacement for your <code>body</code> element, so treat it as such. Anything that is supposed to involve all your content goes here.</p>
+
+    <p>The header can create up to three elements inside itself (they're created only if needed). These are all divs, defined by their IDs:</p>
+
+    <ul>
+    <li><p><code>#air-header-text</code> is the 'title' of the page. It contains the <em>first child of <code>air-header</code></em>. Normally, if you simply wrote text into it, that text is it; however you can also use a div or any other more complex element. Anything that comes afterwards in the header will be left where it is and will keep whatever styling you applied to it; whatever ends considered as the 'text' however will be centred. Styling this element will give you control over the look of your title text if you also places something else inside the header and don't want to touch it.</p></li>
+    <li><p><code>#air-header-bkgfoil</code> is the foil. Styling this allows to go beyond the limitations set by the simple use of attributes.</p></li>
+    <li><p><code>#air-header-bkgimg</code> is the image, if you asked for one. It's pretty self explanatory and probably there's not much you can style in it.</p></li>
+    </ul>
+
+    <h2>And in the end...</h2>
+
+    <p>...that's it! Airhead does not depend any other JS library, partly because I thought it would be overkill for something so simple, partly because I wanted to experiment a bit with vanilla JS. It was a one-day hobby project basically. Some recipes have been taken from <a href="https://plainjs.com/">plain JS</a>, which is a pretty cool website for this stuff. For similar reasons of simplicity and lightness I haven't bothered using NPM or Gulp - Makefile, sass and UglifyJS were all I needed to make a build. The library's released under GPL 3.0, if you do anything with it let me know and I'll be happy to integrate any changes. I'm willing to take suggestions for new functionality but right now I'm not planning to expand this much beyond its current scope. Have fun!</p>
 
     <script src="prism/prism.js" type="text/javascript" charset="utf-8" async defer></script>
 
